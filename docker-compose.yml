@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/var/www/html
+    links:
+      - db
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: teste
+      MYSQL_USER: pedro
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - ./db_data:/var/lib/mysql
+  composer:
+    image: composer:latest
+    volumes:
+      - ./html:/app
